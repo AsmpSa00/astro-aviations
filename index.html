@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Astro Aviations — Aviation Consultancy, Leasing & Training</title>
+  <meta name="description" content="Full-service aviation consultancy, aircraft leasing, and flight training. Type ratings on Citation 500, 550 and 650. Hour building on Cessna 172."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">ASTRO <span>AVIATIONS</span></div>
+  <div class="loader-num" id="loaderNum">0</div>
+  <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
+</div>
+
+<!-- CURSOR -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-wrap">
+    <a class="nav-logo" href="#">
+      <span class="logo-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M9 2L3 6v4c0 3.5 2.5 6.5 6 7.5 3.5-1 6-4 6-7.5V6Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+          <path d="M6.5 9l2 2 3.5-3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      ASTRO <em>AVIATIONS</em>
+    </a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#fleet">Fleet</a>
+      <a href="#process">Training</a>
+      <a href="#contact" class="nav-cta">Enquire</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobileMenu">
+  <a href="#services" class="mob-link">Services</a>
+  <a href="#fleet" class="mob-link">Fleet</a>
+  <a href="#process" class="mob-link">Training</a>
+  <a href="#contact" class="mob-link">Enquire</a>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+<section id="hero">
+  <canvas id="auroraCanvas"></canvas>
+  <div class="hero-grid-veil"></div>
+
+  <div class="plane-scene">
+    <canvas id="contrailCanvas"></canvas>
+    <div class="plane-wrap" id="planeWrap">
+      <!-- Citation-style business jet: slender fuselage, swept wings, T-tail, rear engines -->
+      <svg id="planeSvg" viewBox="0 0 760 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Fuselage gradient: dark nose → light pearl → tapered tail -->
+          <linearGradient id="fG" x1="60" y1="130" x2="700" y2="130" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#141414"/>
+            <stop offset="22%"  stop-color="#9a9a9a"/>
+            <stop offset="55%"  stop-color="#e8e8e8"/>
+            <stop offset="100%" stop-color="#6a6a6a"/>
+          </linearGradient>
+          <!-- Wing gradient -->
+          <linearGradient id="wG" x1="300" y1="120" x2="520" y2="185" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"  stop-color="#2a2a2a" stop-opacity=".9"/>
+            <stop offset="100%" stop-color="#0a0a0a" stop-opacity=".5"/>
+          </linearGradient>
+          <!-- Tail gradient -->
+          <linearGradient id="tG" x1="630" y1="50" x2="690" y2="130" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"  stop-color="#333" stop-opacity=".9"/>
+            <stop offset="100%" stop-color="#111" stop-opacity=".7"/>
+          </linearGradient>
+          <!-- Engine gradient -->
+          <linearGradient id="eG" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0%"  stop-color="#444"/>
+            <stop offset="100%" stop-color="#1a1a1a"/>
+          </linearGradient>
+          <!-- Window gradient -->
+          <radialGradient id="wndG" cx="40%" cy="35%" r="60%">
+            <stop offset="0%"  stop-color="#a8c8f0" stop-opacity=".8"/>
+            <stop offset="100%" stop-color="#2060a0" stop-opacity=".3"/>
+          </radialGradient>
+          <!-- Glow filter: blue accent glow -->
+          <filter id="glow" x="-15%" y="-40%" width="130%" height="180%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="b"/>
+            <feColorMatrix in="b" type="matrix" values="0 0 0 0 .12  0 0 0 0 .50  0 0 0 0 .91  0 0 0 .35 0" result="g"/>
+            <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="softglow">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="b"/>
+            <feColorMatrix in="b" type="matrix" values="0 0 0 0 .12  0 0 0 0 .50  0 0 0 0 .91  0 0 0 .7 0"/>
+          </filter>
+        </defs>
+
+        <!-- === MAIN WING (swept, under fuselage centre) === -->
+        <path d="M 290 132 L 220 195 L 440 190 L 420 132 Z" fill="url(#wG)" opacity=".9"/>
+
+        <!-- Wing underside highlight -->
+        <path d="M 290 132 L 220 195 L 260 195 L 310 140 Z" fill="rgba(255,255,255,.04)"/>
+
+        <!-- === FUSELAGE === -->
+        <!-- Main body: slender Citation-style tube -->
+        <path d="M 80 130 C 130 118, 240 112, 480 112 C 580 112, 650 118, 690 130 C 650 142, 580 148, 480 148 C 240 148, 130 142, 80 130 Z" fill="url(#fG)" filter="url(#glow)"/>
+
+        <!-- Nose cone: sharp point -->
+        <path d="M 60 130 C 68 124, 82 121, 90 126 L 90 134 C 82 139, 68 136, 60 130 Z" fill="#c0c0c0"/>
+
+        <!-- Cockpit windshield area -->
+        <path d="M 120 118 C 148 112, 178 110, 200 112 L 200 130 L 118 130 Z" fill="url(#wndG)" opacity=".7"/>
+        <path d="M 90 128 L 120 118 L 200 112 L 200 116 L 120 122 L 94 130 Z" fill="rgba(255,255,255,.12)"/>
+
+        <!-- Cabin windows - Citation style: small oval windows -->
+        <ellipse cx="240" cy="117" rx="9" ry="5.5" fill="url(#wndG)"/>
+        <ellipse cx="268" cy="115" rx="9" ry="5.5" fill="url(#wndG)"/>
+        <ellipse cx="296" cy="114" rx="9" ry="5.5" fill="url(#wndG)"/>
+        <ellipse cx="324" cy="113" rx="9" ry="5.5" fill="url(#wndG)"/>
+        <ellipse cx="352" cy="113" rx="9" ry="5.5" fill="url(#wndG)"/>
+        <ellipse cx="380" cy="113" rx="9" ry="5.5" fill="url(#wndG)"/>
+        <ellipse cx="408" cy="113" rx="9" ry="5.5" fill="url(#wndG)"/>
+        <ellipse cx="434" cy="114" rx="8.5" ry="5" fill="url(#wndG)"/>
+
+        <!-- Fuselage cheatline / accent stripe -->
+        <path d="M 100 124 L 650 124" stroke="rgba(30,127,232,.4)" stroke-width="1" opacity=".6"/>
+
+        <!-- === REAR ENGINES (pod-mounted either side of rear fuselage) === -->
+        <!-- Left engine pod (viewer's right) -->
+        <path d="M 580 118 C 595 115, 640 114, 660 118 C 655 125, 640 127, 595 127 C 585 127, 578 124, 580 118 Z" fill="url(#tG)"/>
+        <ellipse cx="662" cy="122" rx="4" ry="4.5" fill="#0a0a0a" opacity=".8"/>
+        <!-- Right engine pod -->
+        <path d="M 580 133 C 595 130, 640 130, 660 133 C 655 140, 640 141, 595 141 C 585 141, 578 137, 580 133 Z" fill="url(#tG)"/>
+        <ellipse cx="662" cy="137" rx="4" ry="4.5" fill="#0a0a0a" opacity=".8"/>
+
+        <!-- === VERTICAL TAIL (swept) === -->
+        <path d="M 660 130 L 648 55 L 680 55 L 690 130 Z" fill="url(#tG)"/>
+
+        <!-- === HORIZONTAL STABILISER on top of vertical tail (T-tail) === -->
+        <path d="M 648 55 L 600 62 L 600 68 L 648 63 Z" fill="url(#tG)" opacity=".9"/>
+        <path d="M 680 55 L 728 62 L 728 68 L 680 63 Z" fill="url(#tG)" opacity=".9"/>
+
+        <!-- Top of fuselage highlight -->
+        <path d="M 100 125 C 200 118, 380 115, 580 118" stroke="rgba(255,255,255,.18)" stroke-width="1.2" fill="none"/>
+
+        <!-- Engine intake highlight -->
+        <line x1="580" y1="118" x2="580" y2="141" stroke="rgba(255,255,255,.08)" stroke-width=".8"/>
+
+      </svg>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-chip">
+      <span class="chip-dot"></span>
+      Aviation Consultancy &amp; Training
+    </div>
+    <h1 class="hero-h1">
+      <span class="line"><span class="li">Full-service</span></span>
+      <span class="line"><span class="li">aviation.</span></span>
+      <span class="line"><span class="li accent">One team.</span></span>
+    </h1>
+    <p class="hero-p">Consultancy, dry and wet lease, simulator training, hour building, type rating, and flight training — from the Cessna 172 to the Citation 650.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-glow mag-btn">Explore Services</a>
+      <a href="#contact" class="btn-outline mag-btn">Get in Touch →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hs">
+        <div class="hs-n cnt" data-target="18" data-suffix="+">0</div>
+        <div class="hs-l">Years Operating</div>
+      </div>
+      <div class="hs-d"></div>
+      <div class="hs">
+        <div class="hs-n cnt" data-target="500" data-suffix="+">0</div>
+        <div class="hs-l">Ratings Issued</div>
+      </div>
+      <div class="hs-d"></div>
+      <div class="hs">
+        <div class="hs-n cnt" data-target="4">0</div>
+        <div class="hs-l">Aircraft Types</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <div class="sc-line"><div class="sc-fill"></div></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-band">
+  <div class="mq-track">
+    <div class="mq-set">
+      <span>Aviation Consultancy</span><i>·</i>
+      <span>Dry Lease</span><i>·</i>
+      <span>Wet Lease</span><i>·</i>
+      <span>Simulator Training</span><i>·</i>
+      <span>Hour Building</span><i>·</i>
+      <span>Type Rating</span><i>·</i>
+      <span>Flight Training</span><i>·</i>
+      <span>Cessna 172</span><i>·</i>
+      <span>Citation 500</span><i>·</i>
+      <span>Citation 550</span><i>·</i>
+      <span>Citation 650</span><i>·</i>
+    </div>
+    <div class="mq-set" aria-hidden="true">
+      <span>Aviation Consultancy</span><i>·</i>
+      <span>Dry Lease</span><i>·</i>
+      <span>Wet Lease</span><i>·</i>
+      <span>Simulator Training</span><i>·</i>
+      <span>Hour Building</span><i>·</i>
+      <span>Type Rating</span><i>·</i>
+      <span>Flight Training</span><i>·</i>
+      <span>Cessna 172</span><i>·</i>
+      <span>Citation 500</span><i>·</i>
+      <span>Citation 550</span><i>·</i>
+      <span>Citation 650</span><i>·</i>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SERVICES
+═══════════════════════════════════════════ -->
+<section id="services" class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-hd">
+      <div class="sec-chip reveal-u">Services</div>
+      <h2 class="sec-h reveal-u">Everything aviation,<br/>under one roof.</h2>
+      <p class="sec-sub reveal-u">From strategic consultancy to full type rating programmes — structured to your experience level and operational goals.</p>
+    </div>
+    <div class="svc-grid">
+
+      <!-- 1. Aviation Consultancy -->
+      <div class="svc-card reveal-card">
+        <div class="svc-icon">
+          <!-- Compass: outer ring, cardinal ticks, N-pointer diamond -->
+          <svg viewBox="0 0 28 28" fill="none" stroke="rgba(30,127,232,.85)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="14" cy="14" r="10.5"/>
+            <line x1="14" y1="4" x2="14" y2="7"/>
+            <line x1="14" y1="21" x2="14" y2="24"/>
+            <line x1="4" y1="14" x2="7" y2="14"/>
+            <line x1="21" y1="14" x2="24" y2="14"/>
+            <path d="M14 7L12.2 14L14 12L15.8 14Z"/>
+            <circle cx="14" cy="14" r="1.8"/>
+          </svg>
+        </div>
+        <div class="svc-title">Aviation Consultancy</div>
+        <div class="svc-body">Strategic advice for operators, businesses, and individuals entering or expanding within the aviation sector. Regulatory compliance, fleet planning, and operational audits.</div>
+        <div class="svc-tags"><span>Regulatory</span><span>Fleet Strategy</span></div>
+      </div>
+
+      <!-- 2. Dry Lease -->
+      <div class="svc-card reveal-card">
+        <div class="svc-icon">
+          <!-- Document with key: lease agreement -->
+          <svg viewBox="0 0 28 28" fill="none" stroke="rgba(30,127,232,.85)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="3" width="15" height="19" rx="2"/>
+            <path d="M18 3v4h4"/>
+            <line x1="8" y1="11" x2="16" y2="11"/>
+            <line x1="8" y1="15" x2="13" y2="15"/>
+            <circle cx="19" cy="19" r="4"/>
+            <path d="M17.5 19l1.2 1.2 2-2"/>
+          </svg>
+        </div>
+        <div class="svc-title">Dry Lease</div>
+        <div class="svc-body">Aircraft without crew, maintenance, or insurance. Tailored for AOC holders and operators requiring additional capacity on flexible terms, short or long-term.</div>
+        <div class="svc-tags"><span>AOC Holders</span><span>Flexible Terms</span></div>
+      </div>
+
+      <!-- 3. Wet Lease -->
+      <div class="svc-card reveal-card">
+        <div class="svc-icon">
+          <!-- Aircraft with person: crew included -->
+          <svg viewBox="0 0 28 28" fill="none" stroke="rgba(30,127,232,.85)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 18C4 11 8 5 22 5"/>
+            <circle cx="4" cy="18" r="2"/>
+            <path d="M19 2l3 3-3 3"/>
+            <circle cx="20" cy="17" r="3.5"/>
+            <path d="M14 22c0-3 2-4.5 6-4.5s6 1.5 6 4.5"/>
+          </svg>
+        </div>
+        <div class="svc-title">Wet Lease</div>
+        <div class="svc-body">Complete ACMI solutions — aircraft, crew, maintenance, and insurance provided. Ready to operate from day one, with full crew qualification on type.</div>
+        <div class="svc-tags"><span>ACMI</span><span>Crew Included</span></div>
+      </div>
+
+      <!-- 4. Simulator Training -->
+      <div class="svc-card reveal-card">
+        <div class="svc-icon">
+          <!-- Altimeter gauge: semicircle, tick marks, needle -->
+          <svg viewBox="0 0 28 28" fill="none" stroke="rgba(30,127,232,.85)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 20a10 10 0 1 1 18 0"/>
+            <line x1="8"  y1="17.5" x2="9.5"  y2="16.2"/>
+            <line x1="14" y1="10"   x2="14"    y2="12"/>
+            <line x1="20" y1="17.5" x2="18.5"  y2="16.2"/>
+            <line x1="10.8" y1="11.8" x2="11.8" y2="13.2"/>
+            <line x1="17.2" y1="11.8" x2="16.2" y2="13.2"/>
+            <line x1="14" y1="20" x2="20" y2="13.5" stroke-width="1.8"/>
+            <circle cx="14" cy="20" r="2"/>
+          </svg>
+        </div>
+        <div class="svc-title">Simulator Training</div>
+        <div class="svc-body">High-fidelity simulator sessions on the Citation series. Instrument procedures, non-normal checklists, emergency training, and recurrency checks to JAR/EASA standards.</div>
+        <div class="svc-tags"><span>Citation Types</span><span>IFR · Emergency</span></div>
+      </div>
+
+      <!-- 5. Hour Building -->
+      <div class="svc-card reveal-card">
+        <div class="svc-icon">
+          <!-- Radar arcs + sweep: active search -->
+          <svg viewBox="0 0 28 28" fill="none" stroke="rgba(30,127,232,.85)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 21A7 7 0 0 1 14 14.5"/>
+            <path d="M6 21A11 11 0 0 1 14 11"/>
+            <path d="M2.5 21A14.5 14.5 0 0 1 14 7.5"/>
+            <circle cx="14" cy="21" r="2"/>
+            <line x1="14" y1="21" x2="24.5" y2="10.5" stroke-opacity=".5"/>
+            <circle cx="22" cy="13" r="1.2" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <div class="svc-title">Hour Building</div>
+        <div class="svc-body">Structured hour-building programmes on the Cessna 172. Cost-effective, route-planned flying optimised to accumulate your required hours efficiently toward CPL or ATPL.</div>
+        <div class="svc-tags"><span>Cessna 172</span><span>CPL · ATPL</span></div>
+      </div>
+
+      <!-- 6. Type Rating + Flight Training -->
+      <div class="svc-card reveal-card">
+        <div class="svc-icon">
+          <!-- V-formation: fleet coordination -->
+          <svg viewBox="0 0 28 28" fill="none" stroke="rgba(30,127,232,.85)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="14" cy="4"  r="2.2"/>
+            <circle cx="7"  cy="12" r="2.2"/>
+            <circle cx="21" cy="12" r="2.2"/>
+            <circle cx="3"  cy="21" r="2.2"/>
+            <circle cx="25" cy="21" r="2.2"/>
+            <line x1="14" y1="6.2"  x2="8.6"  y2="10.2"/>
+            <line x1="14" y1="6.2"  x2="19.4" y2="10.2"/>
+            <line x1="7"  y1="14.2" x2="4.4"  y2="19.2"/>
+            <line x1="21" y1="14.2" x2="23.6" y2="19.2"/>
+          </svg>
+        </div>
+        <div class="svc-title">Type Rating &amp; Flight Training</div>
+        <div class="svc-body">Approved type rating programmes on the CE-500, CE-550, and CE-650 Citation series, plus structured PPL and CPL flight training — ground school, flying, and exam preparation.</div>
+        <div class="svc-tags"><span>CE-500</span><span>CE-550</span><span>CE-650</span><span>PPL · CPL</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     ABOUT
+═══════════════════════════════════════════ -->
+<section id="about" class="sec">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-left">
+        <div class="sec-chip reveal-u">About</div>
+        <h2 class="sec-h reveal-u">One team.<br/>Every phase<br/>of your career.</h2>
+        <p class="sec-p reveal-u">Whether you're a student building your first hours on a Cessna 172 or an experienced operator acquiring Citation capacity, Astro Aviations provides expert support across the full spectrum of civil aviation.</p>
+        <p class="sec-p reveal-u">Our team includes type-rated pilots, experienced instructors, and qualified aviation consultants — all operating under a single, accountable roof.</p>
+        <a href="#contact" class="btn-glow mag-btn reveal-u">Speak to Our Team</a>
+      </div>
+      <div class="about-vis reveal-r">
+        <div class="av-glow"></div>
+        <div class="av-grid">
+          <div class="av-card" style="--c1:#1E7FE8;--c2:#60AAFF">
+            <div class="av-n cnt" data-target="18" data-suffix="+">0</div>
+            <div class="av-l">Years Operating</div>
+          </div>
+          <div class="av-card" style="--c1:#1E7FE8;--c2:#60AAFF">
+            <div class="av-n cnt" data-target="500" data-suffix="+">0</div>
+            <div class="av-l">Ratings Issued</div>
+          </div>
+          <div class="av-card" style="--c1:#1E7FE8;--c2:#60AAFF">
+            <div class="av-n cnt" data-target="10000" data-suffix="+">0</div>
+            <div class="av-l">Training Hours</div>
+          </div>
+          <div class="av-card" style="--c1:#1E7FE8;--c2:#60AAFF">
+            <div class="av-n cnt" data-target="4">0</div>
+            <div class="av-l">Aircraft Types</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FLEET
+═══════════════════════════════════════════ -->
+<section id="fleet" class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-hd">
+      <div class="sec-chip reveal-u">Our Aircraft</div>
+      <h2 class="sec-h reveal-u">From piston trainer<br/>to Citation jet.</h2>
+      <p class="sec-sub reveal-u">Four aircraft types covering every phase of training and operations.</p>
+    </div>
+    <div class="fleet-grid">
+
+      <!-- Cessna 172 -->
+      <div class="fleet-card reveal-card">
+        <div class="fleet-plane">
+          <!-- High-wing Cessna 172 silhouette -->
+          <svg viewBox="0 0 200 80" fill="none">
+            <!-- Wing on top (high-wing) -->
+            <path d="M20 35 L185 35 L185 32 L100 28 L20 32 Z" fill="rgba(255,255,255,.14)" stroke="rgba(255,255,255,.22)" stroke-width=".6"/>
+            <!-- Fuselage (tapered, short) -->
+            <path d="M55 35 C70 40, 130 42, 170 38 C165 46, 140 50, 110 50 C80 50, 60 47, 55 35 Z" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.18)" stroke-width=".6"/>
+            <!-- Nose -->
+            <path d="M55 35 C48 36, 38 37, 32 40 C38 44, 48 44, 55 43 Z" fill="rgba(255,255,255,.10)"/>
+            <!-- Tail -->
+            <path d="M160 38 L168 20 L175 20 L175 38 Z" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.15)" stroke-width=".5"/>
+            <path d="M162 38 L185 36 L185 39 L162 40 Z" fill="rgba(255,255,255,.08)"/>
+            <!-- Prop -->
+            <line x1="32" y1="33" x2="32" y2="47" stroke="rgba(255,255,255,.3)" stroke-width="1.2" stroke-linecap="round"/>
+            <!-- Strut -->
+            <line x1="100" y1="35" x2="100" y2="50" stroke="rgba(255,255,255,.1)" stroke-width=".7"/>
+          </svg>
+        </div>
+        <div class="fleet-badge">Piston Single</div>
+        <div class="fleet-name">Cessna 172</div>
+        <div class="fleet-eg">Skyhawk</div>
+        <div class="fleet-range">Hour Building · PPL · CPL Training</div>
+      </div>
+
+      <!-- Cessna 500 -->
+      <div class="fleet-card reveal-card">
+        <div class="fleet-plane">
+          <!-- Streamlined low-wing jet: Citation I -->
+          <svg viewBox="0 0 200 70" fill="none">
+            <path d="M22 35 C52 26,100 24,145 27 C158 28,164 31,166 35 C164 39,158 42,145 43 C100 46,52 44,22 35Z" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.2)" stroke-width=".6"/>
+            <path d="M85 29 L105 29 L132 52 L115 52Z" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.13)" stroke-width=".5"/>
+            <path d="M28 32 C20 28,16 24,18 20 C24 18,32 23,35 28Z" fill="rgba(255,255,255,.09)"/>
+            <!-- Rear engines -->
+            <ellipse cx="148" cy="28" rx="12" ry="3.5" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+            <ellipse cx="148" cy="42" rx="12" ry="3.5" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+            <!-- T-tail -->
+            <path d="M155 30 L150 12 L158 12 L162 30Z" fill="rgba(255,255,255,.08)"/>
+            <path d="M150 12 L130 15 L130 18 L150 15Z" fill="rgba(255,255,255,.07)"/>
+            <path d="M158 12 L178 15 L178 18 L158 15Z" fill="rgba(255,255,255,.07)"/>
+          </svg>
+        </div>
+        <div class="fleet-badge">Light Jet</div>
+        <div class="fleet-name">Cessna 500</div>
+        <div class="fleet-eg">Citation I</div>
+        <div class="fleet-range">Type Rating · Dry / Wet Lease</div>
+      </div>
+
+      <!-- Cessna 550 -->
+      <div class="fleet-card reveal-card">
+        <div class="fleet-plane">
+          <svg viewBox="0 0 200 70" fill="none">
+            <path d="M20 35 C50 24,104 21,150 26 C164 27,171 31,173 35 C171 39,164 43,150 44 C104 49,50 46,20 35Z" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.2)" stroke-width=".6"/>
+            <path d="M82 28 L108 28 L142 55 L122 55Z" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.13)" stroke-width=".5"/>
+            <path d="M25 31 C15 26,11 21,13 16 C20 14,29 20,33 26Z" fill="rgba(255,255,255,.09)"/>
+            <ellipse cx="156" cy="26" rx="14" ry="3.5" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+            <ellipse cx="156" cy="44" rx="14" ry="3.5" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+            <path d="M162 28 L156 8 L165 8 L170 28Z" fill="rgba(255,255,255,.08)"/>
+            <path d="M156 8 L133 11 L133 15 L156 11Z" fill="rgba(255,255,255,.07)"/>
+            <path d="M165 8 L188 11 L188 15 L165 11Z" fill="rgba(255,255,255,.07)"/>
+          </svg>
+        </div>
+        <div class="fleet-badge">Light Jet</div>
+        <div class="fleet-name">Cessna 550</div>
+        <div class="fleet-eg">Citation II / Bravo</div>
+        <div class="fleet-range">Type Rating · Dry / Wet Lease</div>
+      </div>
+
+      <!-- Cessna 650 -->
+      <div class="fleet-card reveal-card">
+        <div class="fleet-plane">
+          <svg viewBox="0 0 200 70" fill="none">
+            <path d="M18 35 C48 22,108 18,155 24 C170 25,178 30,180 35 C178 40,170 45,155 46 C108 52,48 48,18 35Z" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.2)" stroke-width=".6"/>
+            <path d="M80 27 L112 27 L150 57 L128 57Z" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.13)" stroke-width=".5"/>
+            <path d="M22 30 C12 24,8 19,10 13 C18 11,28 18,32 24Z" fill="rgba(255,255,255,.09)"/>
+            <ellipse cx="163" cy="25" rx="15" ry="3.5" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+            <ellipse cx="163" cy="46" rx="15" ry="3.5" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+            <path d="M170 27 L162 5 L172 5 L178 27Z" fill="rgba(255,255,255,.08)"/>
+            <path d="M162 5 L138 9 L138 13 L162 9Z" fill="rgba(255,255,255,.07)"/>
+            <path d="M172 5 L196 9 L196 13 L172 9Z" fill="rgba(255,255,255,.07)"/>
+          </svg>
+        </div>
+        <div class="fleet-badge">Mid-Size Jet</div>
+        <div class="fleet-name">Cessna 650</div>
+        <div class="fleet-eg">Citation III / VI / VII</div>
+        <div class="fleet-range">Type Rating · Wet Lease · Charter</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     STATS BAND
+═══════════════════════════════════════════ -->
+<div class="stats-band">
+  <div class="wrap">
+    <div class="sb-grid">
+      <div class="sb-item">
+        <div class="sb-n cnt grad-text" data-target="18" data-suffix="+">0</div>
+        <div class="sb-l">Years Operating</div>
+      </div>
+      <div class="sb-sep"></div>
+      <div class="sb-item">
+        <div class="sb-n cnt grad-text" data-target="500" data-suffix="+">0</div>
+        <div class="sb-l">Ratings Issued</div>
+      </div>
+      <div class="sb-sep"></div>
+      <div class="sb-item">
+        <div class="sb-n cnt grad-text" data-target="10000" data-suffix="+">0</div>
+        <div class="sb-l">Training Hours</div>
+      </div>
+      <div class="sb-sep"></div>
+      <div class="sb-item">
+        <div class="sb-n cnt grad-text" data-target="100" data-suffix="%">0</div>
+        <div class="sb-l">Pass Rate</div>
+      </div>
+      <div class="sb-sep"></div>
+      <div class="sb-item">
+        <div class="sb-n cnt grad-text" data-target="4">0</div>
+        <div class="sb-l">Aircraft Types</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PROCESS
+═══════════════════════════════════════════ -->
+<section id="process" class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-hd">
+      <div class="sec-chip reveal-u">How It Works</div>
+      <h2 class="sec-h reveal-u">From enquiry<br/>to certification.</h2>
+    </div>
+    <div class="proc-grid">
+      <div class="proc-step reveal-step" style="--bc:#1E7FE8">
+        <div class="ps-n">01</div>
+        <div class="ps-bar"></div>
+        <div class="ps-title">Initial Assessment</div>
+        <div class="ps-body">We assess your current licence level, logged hours, goals, and timeline. This shapes a programme precisely matched to where you are and where you need to be.</div>
+      </div>
+      <div class="proc-step reveal-step" style="--bc:#1E7FE8">
+        <div class="ps-n">02</div>
+        <div class="ps-bar"></div>
+        <div class="ps-title">Programme Design</div>
+        <div class="ps-body">Our instructors design a structured syllabus — ground school, simulator sessions, and flying hours — with clear milestones and a realistic completion target.</div>
+      </div>
+      <div class="proc-step reveal-step" style="--bc:#1E7FE8">
+        <div class="ps-n">03</div>
+        <div class="ps-bar"></div>
+        <div class="ps-title">Training Begins</div>
+        <div class="ps-body">You begin flying with our instructors or, for simulator courses, progress through the approved syllabus. Progress is monitored at every stage with detailed debrief reports.</div>
+      </div>
+      <div class="proc-step reveal-step" style="--bc:#1E7FE8">
+        <div class="ps-n">04</div>
+        <div class="ps-bar"></div>
+        <div class="ps-title">Rating Achieved</div>
+        <div class="ps-body">Skill test, examiner sign-off, and licence endorsement. Our 100% first-attempt pass rate reflects the quality of preparation we put into every candidate.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     WHY US
+═══════════════════════════════════════════ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-hd">
+      <div class="sec-chip reveal-u">Why Astro</div>
+      <h2 class="sec-h reveal-u">Built around<br/>your progression.</h2>
+    </div>
+    <div class="why-grid">
+
+      <div class="why-card reveal-card">
+        <div class="why-icon">
+          <!-- Shield: safety and trust -->
+          <svg viewBox="0 0 22 22" fill="none" stroke="rgba(30,127,232,.85)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 2L3 5.5V11c0 5 3.5 9 8 10.5C16.5 20 20 16 20 11V5.5Z"/>
+            <line x1="11" y1="2" x2="11" y2="20"/>
+          </svg>
+        </div>
+        <div class="why-title">Independent &amp; Impartial</div>
+        <div class="why-body">We operate with no airline or OEM affiliation. Our advice, training design, and lease recommendations are driven solely by what is right for you.</div>
+      </div>
+
+      <div class="why-card reveal-card">
+        <div class="why-icon">
+          <!-- Pilot wings: aviation expertise -->
+          <svg viewBox="0 0 22 22" fill="none" stroke="rgba(30,127,232,.85)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 9.5C9.5 7 7.5 6 5.5 7S3 10.5 4.5 12C6 13.5 8.5 13.5 11 12.5"/>
+            <path d="M11 9.5C12.5 7 14.5 6 16.5 7S19 10.5 17.5 12C16 13.5 13.5 13.5 11 12.5"/>
+            <circle cx="11" cy="11" r="2.5"/>
+          </svg>
+        </div>
+        <div class="why-title">Multi-Type Expertise</div>
+        <div class="why-body">Our instructors hold ratings across the full range — Cessna 172 through Citation 650. You receive continuity of training from first flight to jet type rating.</div>
+      </div>
+
+      <div class="why-card reveal-card">
+        <div class="why-icon">
+          <!-- Padlock: proven record -->
+          <svg viewBox="0 0 22 22" fill="none" stroke="rgba(30,127,232,.85)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="11" width="14" height="9" rx="2"/>
+            <path d="M7.5 11V8a3.5 3.5 0 0 1 7 0v3"/>
+            <circle cx="11" cy="15.5" r="1.5"/>
+            <line x1="11" y1="17" x2="11" y2="19"/>
+          </svg>
+        </div>
+        <div class="why-title">100% Pass Rate</div>
+        <div class="why-body">Every candidate who has completed our structured type rating and flight training programmes has passed first attempt. Our preparation record is unblemished.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     TESTIMONIAL
+═══════════════════════════════════════════ -->
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="testimonial-block reveal-q">
+      <div class="t-stars">
+        <svg width="16" height="16" viewBox="0 0 18 18" fill="#1E7FE8"><path d="M9 1l2.3 5h5.2l-4.2 3.1 1.6 5-4.9-3.5-4.9 3.5 1.6-5L1.5 6h5.2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 18 18" fill="#1E7FE8"><path d="M9 1l2.3 5h5.2l-4.2 3.1 1.6 5-4.9-3.5-4.9 3.5 1.6-5L1.5 6h5.2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 18 18" fill="#1E7FE8"><path d="M9 1l2.3 5h5.2l-4.2 3.1 1.6 5-4.9-3.5-4.9 3.5 1.6-5L1.5 6h5.2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 18 18" fill="#1E7FE8"><path d="M9 1l2.3 5h5.2l-4.2 3.1 1.6 5-4.9-3.5-4.9 3.5 1.6-5L1.5 6h5.2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 18 18" fill="#1E7FE8"><path d="M9 1l2.3 5h5.2l-4.2 3.1 1.6 5-4.9-3.5-4.9 3.5 1.6-5L1.5 6h5.2z"/></svg>
+      </div>
+      <blockquote>
+        "I completed my CE-550 type rating with Astro Aviations in three weeks. The structured syllabus, experienced instructors, and genuine attention to exam preparation made the difference. Passed first attempt."
+      </blockquote>
+      <div class="t-author">
+        <div class="t-av">MK</div>
+        <div>
+          <div class="t-name">M. Kaminski</div>
+          <div class="t-role">First Officer — Regional Operator, Warsaw</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CONTACT
+═══════════════════════════════════════════ -->
+<section id="contact" class="sec-contact">
+  <div class="contact-glow-1"></div>
+  <div class="contact-glow-2"></div>
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <div class="sec-chip reveal-u">Enquire</div>
+        <h2 class="sec-h reveal-u">Start your<br/>programme.</h2>
+        <p class="sec-p reveal-u">Tell us where you are in your aviation journey and what you want to achieve. Our team will respond within one business day with a tailored proposal.</p>
+        <ul class="c-list reveal-u">
+          <li><span class="c-dot" style="color:#1E7FE8;background:#1E7FE8"></span>Response within 24 hours</li>
+          <li><span class="c-dot" style="color:#1E7FE8;background:#1E7FE8"></span>No commitment required</li>
+          <li><span class="c-dot" style="color:#1E7FE8;background:#1E7FE8"></span>Tailored programme proposal</li>
+        </ul>
+      </div>
+      <div class="contact-right reveal-r">
+        <div class="form-card">
+          <form id="cForm">
+            <div class="frow">
+              <div class="ff">
+                <label>Name</label>
+                <input type="text" placeholder="Your full name" required/>
+              </div>
+              <div class="ff">
+                <label>Email</label>
+                <input type="email" placeholder="your@email.com" required/>
+              </div>
+            </div>
+            <div class="frow">
+              <div class="ff">
+                <label>Current Licence</label>
+                <select>
+                  <option value="" disabled selected>Select licence</option>
+                  <option>Student Pilot</option>
+                  <option>PPL</option>
+                  <option>CPL</option>
+                  <option>ATPL</option>
+                  <option>No licence yet</option>
+                </select>
+              </div>
+              <div class="ff">
+                <label>Service of Interest</label>
+                <select>
+                  <option value="" disabled selected>Select service</option>
+                  <option>Aviation Consultancy</option>
+                  <option>Dry Lease</option>
+                  <option>Wet Lease</option>
+                  <option>Simulator Training</option>
+                  <option>Hour Building</option>
+                  <option>Type Rating — CE-500</option>
+                  <option>Type Rating — CE-550</option>
+                  <option>Type Rating — CE-650</option>
+                  <option>Flight Training (PPL/CPL)</option>
+                </select>
+              </div>
+            </div>
+            <div class="ff">
+              <label>Tell us about your goals</label>
+              <textarea rows="5" placeholder="Current experience, target rating or operation, preferred timeline..."></textarea>
+            </div>
+            <button type="submit" class="btn-glow btn-submit mag-btn">
+              <span>Submit Enquiry</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="ft-inner">
+      <div class="ft-logo">Astro Aviations</div>
+      <nav class="ft-nav">
+        <a href="#services">Services</a>
+        <a href="#fleet">Fleet</a>
+        <a href="#process">Training</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="ft-copy">&copy; 2026 Astro Aviations. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
