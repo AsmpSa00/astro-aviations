@@ -1,0 +1,11 @@
+{
+  "name": "astro-aviations",
+  "version": "1.0.0",
+  "description": "Astro Aviations — Aviation consultancy, leasing & training",
+  "dependencies": {
+    "stripe": "^16.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

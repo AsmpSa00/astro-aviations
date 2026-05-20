@@ -39,6 +39,7 @@
       <a href="#services">Services</a>
       <a href="#fleet">Fleet</a>
       <a href="#process">Training</a>
+      <a href="booking.html">Book a Flight</a>
       <a href="#contact" class="nav-cta">Enquire</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span></button>
@@ -59,6 +60,22 @@
 <section id="hero">
   <canvas id="auroraCanvas"></canvas>
   <div class="hero-grid-veil"></div>
+
+  <!-- Flying planes animation -->
+  <div class="sky-stage">
+    <!-- Large Citation jet — flies slow at mid altitude -->
+    <div class="fly-plane fly-1">
+      <img src="https://images.unsplash.com/photo-1628000156679-b36c91956540?w=440&auto=format&q=80" alt="Business jet in flight"/>
+    </div>
+    <!-- Small Cessna — flies fast up high -->
+    <div class="fly-plane fly-2">
+      <img src="https://images.unsplash.com/photo-1532200417790-f0343ec57748?w=300&auto=format&q=80" alt="Cessna 172 in flight"/>
+    </div>
+    <!-- Medium jet — flies slow down low -->
+    <div class="fly-plane fly-3">
+      <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=360&auto=format&q=80" alt="Private jet in flight"/>
+    </div>
+  </div>
 
   <div class="plane-scene">
     <canvas id="contrailCanvas"></canvas>
@@ -411,91 +428,58 @@
 
       <!-- Cessna 172 -->
       <div class="fleet-card reveal-card">
-        <div class="fleet-plane">
-          <!-- High-wing Cessna 172 silhouette -->
-          <svg viewBox="0 0 200 80" fill="none">
-            <!-- Wing on top (high-wing) -->
-            <path d="M20 35 L185 35 L185 32 L100 28 L20 32 Z" fill="rgba(255,255,255,.14)" stroke="rgba(255,255,255,.22)" stroke-width=".6"/>
-            <!-- Fuselage (tapered, short) -->
-            <path d="M55 35 C70 40, 130 42, 170 38 C165 46, 140 50, 110 50 C80 50, 60 47, 55 35 Z" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.18)" stroke-width=".6"/>
-            <!-- Nose -->
-            <path d="M55 35 C48 36, 38 37, 32 40 C38 44, 48 44, 55 43 Z" fill="rgba(255,255,255,.10)"/>
-            <!-- Tail -->
-            <path d="M160 38 L168 20 L175 20 L175 38 Z" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.15)" stroke-width=".5"/>
-            <path d="M162 38 L185 36 L185 39 L162 40 Z" fill="rgba(255,255,255,.08)"/>
-            <!-- Prop -->
-            <line x1="32" y1="33" x2="32" y2="47" stroke="rgba(255,255,255,.3)" stroke-width="1.2" stroke-linecap="round"/>
-            <!-- Strut -->
-            <line x1="100" y1="35" x2="100" y2="50" stroke="rgba(255,255,255,.1)" stroke-width=".7"/>
-          </svg>
+        <div class="fleet-photo">
+          <img src="https://images.unsplash.com/photo-1532200417790-f0343ec57748?w=520&auto=format&q=80" alt="Cessna 172 Skyhawk in flight"/>
         </div>
-        <div class="fleet-badge">Piston Single</div>
-        <div class="fleet-name">Cessna 172</div>
-        <div class="fleet-eg">Skyhawk</div>
-        <div class="fleet-range">Hour Building · PPL · CPL Training</div>
+        <div class="fleet-info">
+          <div class="fleet-badge">Piston Single</div>
+          <div class="fleet-name">Cessna 172</div>
+          <div class="fleet-eg">Skyhawk</div>
+          <div class="fleet-range">Hour Building · PPL · CPL Training</div>
+        </div>
+        <a href="booking.html?ac=c172" class="fleet-book">Book a Flight — $120/hr</a>
       </div>
 
       <!-- Cessna 500 -->
       <div class="fleet-card reveal-card">
-        <div class="fleet-plane">
-          <!-- Streamlined low-wing jet: Citation I -->
-          <svg viewBox="0 0 200 70" fill="none">
-            <path d="M22 35 C52 26,100 24,145 27 C158 28,164 31,166 35 C164 39,158 42,145 43 C100 46,52 44,22 35Z" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.2)" stroke-width=".6"/>
-            <path d="M85 29 L105 29 L132 52 L115 52Z" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.13)" stroke-width=".5"/>
-            <path d="M28 32 C20 28,16 24,18 20 C24 18,32 23,35 28Z" fill="rgba(255,255,255,.09)"/>
-            <!-- Rear engines -->
-            <ellipse cx="148" cy="28" rx="12" ry="3.5" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
-            <ellipse cx="148" cy="42" rx="12" ry="3.5" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
-            <!-- T-tail -->
-            <path d="M155 30 L150 12 L158 12 L162 30Z" fill="rgba(255,255,255,.08)"/>
-            <path d="M150 12 L130 15 L130 18 L150 15Z" fill="rgba(255,255,255,.07)"/>
-            <path d="M158 12 L178 15 L178 18 L158 15Z" fill="rgba(255,255,255,.07)"/>
-          </svg>
+        <div class="fleet-photo">
+          <img src="https://images.unsplash.com/photo-1718202328210-14cdf4f8c9a1?w=520&auto=format&q=80" alt="Cessna Citation 500 business jet"/>
         </div>
-        <div class="fleet-badge">Light Jet</div>
-        <div class="fleet-name">Cessna 500</div>
-        <div class="fleet-eg">Citation I</div>
-        <div class="fleet-range">Type Rating · Dry / Wet Lease</div>
+        <div class="fleet-info">
+          <div class="fleet-badge">Light Jet</div>
+          <div class="fleet-name">Cessna 500</div>
+          <div class="fleet-eg">Citation I</div>
+          <div class="fleet-range">Type Rating · Dry / Wet Lease</div>
+        </div>
+        <a href="booking.html?ac=c500" class="fleet-book">Book a Flight — $120/hr</a>
       </div>
 
       <!-- Cessna 550 -->
       <div class="fleet-card reveal-card">
-        <div class="fleet-plane">
-          <svg viewBox="0 0 200 70" fill="none">
-            <path d="M20 35 C50 24,104 21,150 26 C164 27,171 31,173 35 C171 39,164 43,150 44 C104 49,50 46,20 35Z" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.2)" stroke-width=".6"/>
-            <path d="M82 28 L108 28 L142 55 L122 55Z" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.13)" stroke-width=".5"/>
-            <path d="M25 31 C15 26,11 21,13 16 C20 14,29 20,33 26Z" fill="rgba(255,255,255,.09)"/>
-            <ellipse cx="156" cy="26" rx="14" ry="3.5" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
-            <ellipse cx="156" cy="44" rx="14" ry="3.5" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
-            <path d="M162 28 L156 8 L165 8 L170 28Z" fill="rgba(255,255,255,.08)"/>
-            <path d="M156 8 L133 11 L133 15 L156 11Z" fill="rgba(255,255,255,.07)"/>
-            <path d="M165 8 L188 11 L188 15 L165 11Z" fill="rgba(255,255,255,.07)"/>
-          </svg>
+        <div class="fleet-photo">
+          <img src="https://images.unsplash.com/photo-1635672033263-a19f27eaefa8?w=520&auto=format&q=80" alt="Cessna Citation 550 jet aircraft"/>
         </div>
-        <div class="fleet-badge">Light Jet</div>
-        <div class="fleet-name">Cessna 550</div>
-        <div class="fleet-eg">Citation II / Bravo</div>
-        <div class="fleet-range">Type Rating · Dry / Wet Lease</div>
+        <div class="fleet-info">
+          <div class="fleet-badge">Light Jet</div>
+          <div class="fleet-name">Cessna 550</div>
+          <div class="fleet-eg">Citation II / Bravo</div>
+          <div class="fleet-range">Type Rating · Dry / Wet Lease</div>
+        </div>
+        <a href="booking.html?ac=c550" class="fleet-book">Book a Flight — $120/hr</a>
       </div>
 
       <!-- Cessna 650 -->
       <div class="fleet-card reveal-card">
-        <div class="fleet-plane">
-          <svg viewBox="0 0 200 70" fill="none">
-            <path d="M18 35 C48 22,108 18,155 24 C170 25,178 30,180 35 C178 40,170 45,155 46 C108 52,48 48,18 35Z" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.2)" stroke-width=".6"/>
-            <path d="M80 27 L112 27 L150 57 L128 57Z" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.13)" stroke-width=".5"/>
-            <path d="M22 30 C12 24,8 19,10 13 C18 11,28 18,32 24Z" fill="rgba(255,255,255,.09)"/>
-            <ellipse cx="163" cy="25" rx="15" ry="3.5" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
-            <ellipse cx="163" cy="46" rx="15" ry="3.5" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
-            <path d="M170 27 L162 5 L172 5 L178 27Z" fill="rgba(255,255,255,.08)"/>
-            <path d="M162 5 L138 9 L138 13 L162 9Z" fill="rgba(255,255,255,.07)"/>
-            <path d="M172 5 L196 9 L196 13 L172 9Z" fill="rgba(255,255,255,.07)"/>
-          </svg>
+        <div class="fleet-photo">
+          <img src="https://images.unsplash.com/photo-1635668422724-fffb2201f951?w=520&auto=format&q=80" alt="Cessna Citation 650 mid-size jet"/>
         </div>
-        <div class="fleet-badge">Mid-Size Jet</div>
-        <div class="fleet-name">Cessna 650</div>
-        <div class="fleet-eg">Citation III / VI / VII</div>
-        <div class="fleet-range">Type Rating · Wet Lease · Charter</div>
+        <div class="fleet-info">
+          <div class="fleet-badge">Mid-Size Jet</div>
+          <div class="fleet-name">Cessna 650</div>
+          <div class="fleet-eg">Citation III / VI / VII</div>
+          <div class="fleet-range">Type Rating · Wet Lease · Charter</div>
+        </div>
+        <a href="booking.html?ac=c650" class="fleet-book">Book a Flight — $120/hr</a>
       </div>
 
     </div>
