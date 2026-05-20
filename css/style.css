@@ -147,7 +147,7 @@ body {
   display: flex; align-items: center;
   overflow: hidden; padding: 0 48px;
   padding-top: 90px;
-  background: linear-gradient(160deg, #EBF3FD 0%, #F8FBFF 35%, #FFFFFF 65%, #F5F5F7 100%);
+  background: linear-gradient(180deg, #EBF4FF 0%, #F4F9FF 30%, #FAFCFF 60%, #FFFFFF 100%);
 }
 
 /* Sky grid veil */
@@ -161,6 +161,8 @@ body {
   -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 10%, transparent 100%);
 }
 
+#auroraCanvas { position: absolute; inset: 0; pointer-events: none; display: none; }
+
 /* ══ FLYING PLANES ANIMATION ══ */
 .sky-stage {
   position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1;
@@ -170,12 +172,10 @@ body {
   will-change: transform;
   display: flex; align-items: center;
 }
-.fly-plane img {
+.fly-plane svg {
   display: block;
-  border-radius: 16px;
-  object-fit: cover;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
-  border: 1px solid rgba(255,255,255,0.6);
+  filter: drop-shadow(0 4px 16px rgba(30,127,232,0.13)) drop-shadow(0 1px 4px rgba(0,0,0,0.08));
+  overflow: visible;
 }
 /* Contrail */
 .fly-plane::after {
@@ -188,30 +188,33 @@ body {
 }
 @keyframes contrail-grow { from { width: 40px; opacity: .3; } to { width: 140px; opacity: .7; } }
 
-/* Plane 1 — large, slow, mid-altitude */
+/* Plane 1 — large Citation jet, slow, mid altitude */
 .fly-1 {
-  top: 35%; right: -320px;
-  animation: fly-across-1 42s linear infinite;
-  animation-delay: -8s;
+  top: 38%; right: -360px;
+  animation: fly-across-1 46s linear infinite;
+  animation-delay: -12s;
+  opacity: .85;
 }
-.fly-1 img { width: 280px; height: 160px; opacity: .90; }
+.fly-1 svg { width: 300px; }
 .fly-1::after { height: 3px; }
 
-/* Plane 2 — small, fast, high */
+/* Plane 2 — small Cessna, fast, high */
 .fly-2 {
-  top: 15%; right: -200px;
-  animation: fly-across-2 26s linear infinite;
-  animation-delay: -5s;
+  top: 16%; right: -220px;
+  animation: fly-across-2 28s linear infinite;
+  animation-delay: -6s;
+  opacity: .70;
 }
-.fly-2 img { width: 160px; height: 100px; opacity: .75; }
+.fly-2 svg { width: 170px; }
 
-/* Plane 3 — medium, mid-slow, low */
+/* Plane 3 — medium jet, slow, low */
 .fly-3 {
-  top: 65%; right: -260px;
-  animation: fly-across-3 58s linear infinite;
-  animation-delay: -30s;
+  top: 68%; right: -280px;
+  animation: fly-across-3 62s linear infinite;
+  animation-delay: -34s;
+  opacity: .75;
 }
-.fly-3 img { width: 210px; height: 130px; opacity: .80; }
+.fly-3 svg { width: 220px; }
 
 @keyframes fly-across-1 {
   0%   { transform: translateX(0); }
@@ -249,7 +252,6 @@ body {
   font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
   color: var(--accent);
   margin-bottom: 24px;
-  opacity: 0;
 }
 .chip-dot {
   width: 5px; height: 5px; border-radius: 50%;
@@ -270,7 +272,7 @@ body {
 
 .hero-p {
   font-size: clamp(15px,1.2vw,17px); line-height: 1.72;
-  color: var(--muted); margin-bottom: 40px; opacity: 0;
+  color: var(--muted); margin-bottom: 40px;
   max-width: 460px;
 }
 
@@ -296,12 +298,12 @@ body {
 }
 .btn-outline:hover { color: var(--text); border-color: rgba(0,0,0,.4); }
 
-.hero-btns { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; opacity: 0; }
+.hero-btns { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
 
 /* Hero stats */
 .hero-stats {
   display: flex; align-items: center; gap: 32px;
-  margin-top: 56px; flex-wrap: wrap; opacity: 0;
+  margin-top: 56px; flex-wrap: wrap;
 }
 .hs { display: flex; flex-direction: column; gap: 3px; }
 .hs-n {
@@ -316,7 +318,6 @@ body {
 .scroll-cue {
   position: absolute; bottom: 40px; left: 48px; z-index: 3;
   display: flex; align-items: center; gap: 14px;
-  opacity: 0;
 }
 .sc-line { width: 40px; height: 1px; background: var(--border2); overflow: hidden; }
 .sc-fill { width: 100%; height: 100%; background: var(--accent); transform: translateX(-100%); animation: scan 2.5s ease-in-out infinite; }
