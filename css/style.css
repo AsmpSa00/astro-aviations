@@ -91,29 +91,29 @@ body {
 .nav-wrap {
   max-width: var(--wrap); margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 22px 48px;
+  padding: 28px 56px;
   transition: padding .4s;
 }
-#nav.scrolled .nav-wrap { padding: 14px 48px; }
+#nav.scrolled .nav-wrap { padding: 18px 56px; }
 .nav-logo {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; gap: 12px;
   text-decoration: none;
-  font-size: 12px; font-weight: 700; letter-spacing: .16em;
+  font-size: 14px; font-weight: 700; letter-spacing: .14em;
   color: var(--text); text-transform: uppercase;
 }
 .nav-logo em { font-style: normal; color: var(--accent); }
-.logo-icon svg { display: block; }
-.nav-links { display: flex; align-items: center; gap: 32px; }
+.logo-icon svg { display: block; width: 22px; height: 22px; }
+.nav-links { display: flex; align-items: center; gap: 36px; }
 .nav-links a {
   text-decoration: none;
-  font-size: 13px; font-weight: 500; color: var(--muted);
+  font-size: 14px; font-weight: 500; color: var(--muted);
   transition: color .2s;
 }
 .nav-links a:hover { color: var(--text); }
 .nav-cta {
   background: var(--accent) !important;
-  color: white !important; padding: 9px 20px !important;
-  border-radius: 100px !important; font-size: 13px !important;
+  color: white !important; padding: 11px 24px !important;
+  border-radius: 100px !important; font-size: 14px !important;
   font-weight: 600 !important; letter-spacing: 0 !important;
   transition: background .2s !important;
 }
@@ -144,10 +144,16 @@ body {
 /* ══ HERO ══ */
 #hero {
   position: relative; min-height: 100vh;
-  display: flex; align-items: center;
-  overflow: hidden; padding: 0 48px;
-  padding-top: 90px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  padding: 100px 56px 60px;
   background: linear-gradient(180deg, #EBF4FF 0%, #F4F9FF 30%, #FAFCFF 60%, #FFFFFF 100%);
+}
+/* Hero inner — sits inside the centred wrap zone */
+.hero-inner {
+  position: relative; z-index: 3;
+  width: 100%; max-width: var(--wrap);
+  display: flex; align-items: center;
 }
 
 /* Sky grid veil */
@@ -245,7 +251,7 @@ body {
 /* Hero text */
 .hero-content {
   position: relative; z-index: 3;
-  max-width: 560px;
+  max-width: 580px; flex-shrink: 0;
 }
 .hero-chip {
   display: inline-flex; align-items: center; gap: 8px;
