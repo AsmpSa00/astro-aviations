@@ -788,6 +788,28 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); background: var(-
 .success-card p { font-size: 15px; line-height: 1.7; color: var(--muted); margin-bottom: 28px; }
 .success-card a { display: inline-block; text-decoration: none; }
 
+/* ══ SUN INFO BAR ══ */
+.sun-info-bar {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 500; color: var(--accent);
+  background: rgba(30,127,232,.07); border: 1px solid rgba(30,127,232,.15);
+  border-radius: 8px; padding: 9px 14px;
+  margin-bottom: 16px; line-height: 1.4;
+}
+.sun-info-bar svg { flex-shrink: 0; opacity: .7; }
+.sun-info-bar strong { font-weight: 700; }
+
+/* ══ SLOT BUTTON INNER LAYOUT ══ */
+.slot-btn { display: flex; flex-direction: column; gap: 2px; align-items: center; padding: 12px 10px; }
+.slot-time { font-size: 15px; font-weight: 700; letter-spacing: -.02em; line-height: 1; }
+.slot-sep  { font-size: 10px; color: var(--muted); line-height: 1; }
+.slot-end  { font-size: 12px; color: var(--muted); line-height: 1; }
+.slot-btn.selected .slot-sep,
+.slot-btn.selected .slot-end { color: rgba(255,255,255,.7); }
+
+/* ══ SLOT ERROR ══ */
+.slots-error { color: #e05; font-size: 13px; }
+
 /* ══ RESPONSIVE ══ */
 @media (max-width: 1100px) {
   .svc-grid  { grid-template-columns: repeat(2,1fr); }
